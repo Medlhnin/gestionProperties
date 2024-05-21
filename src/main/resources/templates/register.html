@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create an Account</title>
+    <link th:href="@{/css/register.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <main class="main-content">
+        <h1>Create an account</h1>
+        <div class="social-signup">
+            <button class="social-button google">Sign up with Google</button>
+            <button class="social-button apple">Sign up with Apple</button>
+        </div>
+        <p class="or">Or</p>
+        <form class="signup-form" th:action="@{/register}" th:object="${user}" method="post">
+            <input type="text" name="Username" th:field="*{username}" placeholder="Username" required>
+            <input type="email" name="email" th:field="*{email}" placeholder="Email address" required>
+            <input type="password" name="password" th:field="*{password}" placeholder="Password" required>
+            <select name="role" id="role" th:field="*{role}" required>
+                <option value="USER">User</option>
+                <option value="OWNER">Owner</option>
+            </select>
+            <label class="terms">
+                <input type="checkbox" name="terms" required>
+                I agree to the terms of service and privacy policy
+            </label>
+            <button type="submit" class="submit-button">Create account</button>
+            <a href="/login" class="register-link">Already have an account? Sign in</a>
+        </form>
+    </main>
+</div>
+</body>
+</html>

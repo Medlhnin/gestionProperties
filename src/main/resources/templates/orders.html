@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link th:href="@{/css/orders.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2>Orders</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/orders" class="active">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties">Properties</a></li>
+                <li><a href="/setting">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <section class="profile-section">
+            <div class="profile-header">
+                <img th:src="@{/images/Photofin_edited.jpg}" alt="Profile Picture" class="profile-pic">
+                <h2 th:text="${username}"></h2>
+                <p th:text="${email}"></p>
+                <button class="btn edit-profile">Edit Profile</button>
+                <button class="btn more">More</button>
+            </div>
+        </section>
+        <section class="orders-section">
+            <h2>Orders</h2>
+            <div class="order-list" th:each="userOrder: ${orders}">
+                <div class="order-item">
+                    <h3 th:text="${{userOrder.getProperty().getName()}}"></h3>
+                    <p th:text="${{userOrder.getOrderDate()}}"></p>
+                    <p th:text="${{userOrder.getUser().getEmail()}}"></p>
+                    <p th:text="${{userOrder.getProperty().getPrice()}}"></p>
+                    <button class="btn view-order">View Order</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

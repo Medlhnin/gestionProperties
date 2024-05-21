@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2 class="logo">User Dashboard</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile" class="active">Profile</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties">Properties</a></li>
+                <li><a href="/setting">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <div class="profile-header">
+            <div class="user-info">
+                <img class="profile-pic-large" th:src="@{/images/Photofin_edited.jpg}" alt="Profile Picture">
+                <div class="user-details">
+                    <h1 th:text="${username}"></h1>
+                    <p th:text="${email}"></p>
+                </div>
+            </div>
+            <div class="action-buttons">
+                <a href="/setting"><button class="edit-button">Edit Profile</button></a>
+                <button class="more-button">More</button>
+            </div>
+        </div>
+        <section class="profile-details">
+            <h2>Contact Information</h2>
+            <p><strong>Email:</strong> <span th:text="${email}">user@example.com</span></p>
+        </section>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit" class="logout-button">Logout</button>
+        </form>
+    </main>
+</div>
+</body>
+</html>

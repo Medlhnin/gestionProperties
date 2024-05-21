@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports</title>
+    <link th:href="@{/css/reports.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2 class="logo">Owner01!</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports" class="active">Reports</a></li>
+                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties">Properties</a></li>
+                <li><a href="/settings">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <section class="reports-section">
+            <h2>Reports</h2>
+            <div class="report-filters">
+                <button class="filter-button">All</button>
+                <button class="filter-button">Monthly</button>
+                <button class="filter-button">Quarterly</button>
+                <button class="filter-button">Yearly</button>
+            </div>
+            <div class="report-list">
+                <div class="report-item">
+                    <h3>Monthly Report - April 2024</h3>
+                    <p>Generated on: 2024-05-01</p>
+                    <button class="view-button">View Report</button>
+                    <button class="download-button">Download PDF</button>
+                </div>
+                <div class="report-item">
+                    <h3>Quarterly Report - Q1 2024</h3>
+                    <p>Generated on: 2024-04-01</p>
+                    <button class="view-button">View Report</button>
+                    <button class="download-button">Download PDF</button>
+                </div>
+                <!-- Repeat similar blocks for more reports -->
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>
+

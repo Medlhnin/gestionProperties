@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Properties</title>
+    <link th:href="@{/css/properties.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2 class="logo">Owner01!</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties" class="active">Properties</a></li>
+                <li><a href="/setting">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <section class="properties-section">
+            <h2>Your Properties</h2>
+            <div class="property-list" th:each="property: ${properties}">
+                <div class="property-item">
+                    <h3 th:text="${{property.getName()}}"></h3>
+                    <p th:text="${{property.getAddress()}}"></p>
+                    <p th:text="${{property.getPrice()}}"></p>
+                    <button class="edit-button">Edit</button>
+                    <button class="delete-button">Delete</button>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

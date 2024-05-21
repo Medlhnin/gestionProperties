@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create a New Listing</title>
+    <link th:href="@{/css/newProperty.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <h1>Post a new property</h1>
+    <form class="listing-form" th:action="@{/newProperty}" th:object="${newProperty}" method="post">
+        <div class="form-group">
+            <label for="name">Name </label>
+            <input type="text" id="name" name="name" placeholder="Name" th:field="*{name}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="street-address">Street Address</label>
+            <input type="text" id="street-address" name="street-address" placeholder="123 Example Street" th:field="*{address}" required>
+        </div>
+
+        <div class="form-group">
+            <select name="city" id="city" th:field="*{city}" required>
+                <option value="Casablanca">Casablanca</option>
+                <option value="Rabat">Rabat</option>
+                <option value="Tanger">Tanger</option>
+                <option value="Marrakeck">Marrakeck</option>
+                <option value="Fes">Fes</option>
+                <option value="Maknes">Maknes</option>
+                <option value="alHoceima">alHoceima</option>
+                <option value="Tetouan">Tetouan</option>
+                <option value="Agadir">Agadir</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <select name="category" id="category" th:field="*{category}" required>
+                <option value="Apartment">Apartment</option>
+                <option value="House">House</option>
+                <option value="Garage">Garage</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="zip-code">Zip Code</label>
+            <input type="text" id="zip-code" name="zip-code" placeholder="94103" th:field="*{zipCode}" required>
+        </div>
+
+        <div class="form-group">
+            <label for="price-per-night">Price per night</label>
+            <input type="number" id="price-per-night" name="price-per-night" placeholder="$0" th:field="*{price}" required>
+        </div>
+
+        <!--<div class="form-group">
+            <label for="photos">Photos</label>
+            <input type="file" id="photos" name="photos" th:field="*{file}" enctype="multipart/form-data" required>
+        </div> -->
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea id="description" name="description" placeholder="Tell guests about your space and what makes it unique." th:field="*{description}"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="button" class="btn cancel">Cancel</button>
+            <button type="submit" class="btn save">Save</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>

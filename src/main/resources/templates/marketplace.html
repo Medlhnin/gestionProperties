@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <link th:href="@{/css/marketplace.css}" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript">
+        function confirmAddToOrder() {
+            return confirm("Are you sure you want to add this product to your order?");
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2 class="logo">Owner01!</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/marketplace" class="active">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties">Properties</a></li>
+                <li><a href="/setting">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="main-header">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </header>
+        <section class="orders-section">
+            <h2>Marketplace</h2>
+            <input type="text" placeholder="Search inventory">
+            <div class="filters">
+                <button>All</button>
+                <button>Casablanca</button>
+                <button>Rabat</button>
+                <button>Fès</button>
+                <button>Tanger</button>
+                <button>Tétouan</button>
+            </div>
+            <div th:if="${message}" class="alert alert-success">
+                <p th:text="${message}"></p>
+            </div>
+            <div class="order-list" th:each="property: ${properties}">
+                    <div class="order-item">
+                        <img th:src="@{/images/appartement.webp}" alt="Product Image">
+                        <div class="order-info">
+                            <h3 th:text="${{property.getName()}}"></h3>
+                            <p th:text="${{property.getCity()}}"></p>
+                            <p th:text="${{property.getAddress()}}"></p>
+                            <p th:text="${{property.getPrice()}}+' $'">/p>
+                        </div>
+                        <form th:action="@{/marketplace/order}" th:object="${order}" method="post" onsubmit="return confirmAddToOrder()">
+                            <input type="hidden" name="propertyId"  th:value="${property.getId()}">
+                            <button class="add-to-orders">Add To Orders</button>
+                        </form>
+                    </div>
+            </div>
+        </section>
+    </main>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Settings</title>
+    <link th:href="@{/css/style.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div class="container">
+    <aside class="sidebar">
+        <h2 class="logo">Owner01!</h2>
+        <nav>
+            <ul>
+                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/orders">Orders</a></li>
+                <li><a href="/reports">Reports</a></li>
+                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/newProperty">New Property</a></li>
+                <li><a href="/properties">Properties</a></li>
+                <li><a href="/setting" class="active">Settings</a></li>
+                <li><a href="/helpCenter">Help Center</a></li>
+            </ul>
+        </nav>
+    </aside>
+    <main class="main-content">
+        <header class="main-header">
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="logout-button">Logout</button>
+            </form>
+        </header>
+        <section class="settings-section">
+            <h2>User Settings</h2>
+            <form class="settings-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <input type="text" id="role" name="role" placeholder="Enter your role">
+                </div>
+                <button type="submit" class="save-button">Save Changes</button>
+            </form>
+        </section>
+    </main>
+</div>
+</body>
+</html>
