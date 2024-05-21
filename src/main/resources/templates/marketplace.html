@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Dashboard</title>
+    <title>Marketplace</title>
     <link th:href="@{/css/marketplace.css}" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
         function confirmAddToOrder() {
@@ -14,26 +14,21 @@
 <body>
 <div class="container">
     <aside class="sidebar">
-        <h2 class="logo">Owner01!</h2>
+        <h2 class="logo">User Dashboard</h2>
         <nav>
             <ul>
-                <li><a href="/profile">Dashboard</a></li>
+                <li><a href="/profile">Profile</a></li>
                 <li><a href="/orders">Orders</a></li>
                 <li><a href="/reports">Reports</a></li>
                 <li><a href="/marketplace" class="active">Marketplace</a></li>
                 <li><a href="/newProperty">New Property</a></li>
-                <li><a href="/properties">Properties</a></li>
+                <li><a href="/properties">My properties</a></li>
                 <li><a href="/setting">Settings</a></li>
                 <li><a href="/helpCenter">Help Center</a></li>
             </ul>
         </nav>
     </aside>
     <main class="main-content">
-        <header class="main-header">
-            <form th:action="@{/logout}" method="post">
-                <button type="submit" class="logout-button">Logout</button>
-            </form>
-        </header>
         <section class="orders-section">
             <h2>Marketplace</h2>
             <input type="text" placeholder="Search inventory">
