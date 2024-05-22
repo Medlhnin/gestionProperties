@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +19,10 @@ import java.util.stream.Collectors;
 
 public class MyUserDetails implements UserDetails {
     private Long id;
+    private String firstName;
+    private String lastName;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
     private String username;
     private String password;
     private String email;
@@ -32,6 +38,10 @@ public class MyUserDetails implements UserDetails {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         this.properties = userGl.getProperties();
+        this.firstName = userGl.getFirstName();
+        this.lastName = userGl.getLastName();
+        this.createdAt = userGl.getCreatedAt();
+        this.updatedAt = userGl.getUpdatedAt();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

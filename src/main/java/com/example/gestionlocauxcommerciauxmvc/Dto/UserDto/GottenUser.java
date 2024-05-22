@@ -9,8 +9,18 @@ import lombok.*;
 @EqualsAndHashCode
 @ToString
 public class GottenUser {
+    private String firstName;
+    private String lastName;
     private String username;
     private String password;
     private String email;
     private String role;
+
+    public GottenUser(String username, String firstName, String lastName, String email)
+    {
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

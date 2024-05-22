@@ -27,6 +27,10 @@ public class profileController {
             Object principal = auth.getPrincipal();
             if (principal instanceof MyUserDetails) {
                 MyUserDetails userDetails = (MyUserDetails) principal;
+                model.addAttribute("firstName", userDetails.getFirstName());
+                model.addAttribute("lastName", userDetails.getLastName());
+                model.addAttribute("createdAt", userDetails.getCreatedAt());
+                model.addAttribute("updatedAt", userDetails.getUpdatedAt());
                 model.addAttribute("username", userDetails.getUsername());
                 model.addAttribute("authorities", userDetails.getAuthorities());
                 model.addAttribute("email", userDetails.getEmail());

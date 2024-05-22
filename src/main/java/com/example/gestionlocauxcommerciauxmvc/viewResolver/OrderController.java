@@ -36,8 +36,6 @@ public class OrderController {
             Object principal = auth.getPrincipal();
             if (principal instanceof MyUserDetails) {
                 MyUserDetails userDetails = (MyUserDetails) principal;
-                model.addAttribute("username", userDetails.getUsername());
-                model.addAttribute("email", userDetails.getEmail());
                 model.addAttribute("orders", orderService.getOrdersByUserId(userDetails.getId()));
             } else {
                 throw new UsernameNotFoundException("User details not found");

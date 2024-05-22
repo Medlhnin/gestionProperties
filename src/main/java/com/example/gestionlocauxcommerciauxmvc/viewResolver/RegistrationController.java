@@ -41,15 +41,19 @@ public class RegistrationController {
     public ModelAndView register(@ModelAttribute("user") GottenUser newUser) {
         UserGl userGl = new UserGl();
         String hashedPassword = passwordEncoder.encode(newUser.getPassword());
+        userGl.setFirstName(newUser.getFirstName());
+        userGl.setLastName(newUser.getLastName());
         userGl.setUsername(newUser.getUsername());
         userGl.setPassword(hashedPassword);
         userGl.setEmail(newUser.getEmail());
+        userGl.setCreatedAt(java.time.LocalDateTime.now());
+        userGl.setUpdatedAt(java.time.LocalDateTime.now());
         if (newUser.getRole().contains("OWNER")) {
-            userGl.setRoles("OWNER");
+            userGl.setRoles("ROLE_OWNER");
         } else {
-            userGl.setRoles("USER");
+            userGl.setRoles("ROLE_USER");
         }
-        if(Objects.equals(userGl.getRoles(), "OWNER")){
+        if(Objects.equals(userGl.getRoles(), "ROLE_OWNER")){
             Subscription subscription = new Subscription(TypeSubscription.GRATUIT);
             subscriptionService.save(subscription);
             userGl.setSubscription(subscription);

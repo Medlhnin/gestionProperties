@@ -43,7 +43,7 @@ public class newPropertyController {
     }
 
     @PostMapping("/newProperty")
-    public ModelAndView newPropertySubmit(@ModelAttribute("newProperty") newProperty newProperty) throws IOException {
+    public String newPropertySubmit(@ModelAttribute("newProperty") newProperty newProperty) throws IOException {
         Property property = new Property();
         property.setAddress(newProperty.getAddress());
         property.setCity(newProperty.getCity());
@@ -69,8 +69,6 @@ public class newPropertyController {
             }
         }
         propertyService.saveProperty(property);
-        ModelAndView modelAndView = new ModelAndView("profile");
-        modelAndView.addObject("message", "property added successfully!");
-        return modelAndView;
+        return "redirect:/profile";
     }
 }

@@ -1,10 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Profile</title>
     <link th:href="@{/css/profile.css}" rel="stylesheet" type="text/css"/>
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script> -->
+    <style>
+        #user-info-container {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -14,12 +22,15 @@
             <ul>
                 <li><a href="/profile" class="active">Profile</a></li>
                 <li><a href="/orders">Orders</a></li>
-                <li><a href="/reports">Reports</a></li>
+                <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
                 <li><a href="/marketplace">Marketplace</a></li>
-                <li><a href="/newProperty">New Property</a></li>
-                <li><a href="/properties">My properties</a></li>
+                <li><a href="/newProperty" sec:authorize="hasRole('OWNER')">New Property</a></li>
+                <li><a href="/properties" sec:authorize="hasRole('OWNER')">My properties</a></li>
                 <li><a href="/setting">Settings</a></li>
                 <li><a href="/helpCenter">Help Center</a></li>
+                <li><a href="/notification" sec:authorize="hasRole('ADMIN')">Notification</a></li>
+
+
             </ul>
         </nav>
     </aside>
@@ -34,17 +45,43 @@
             </div>
             <div class="action-buttons">
                 <a href="/setting"><button class="edit-button">Edit Profile</button></a>
-                <button class="more-button">More</button>
+                <button class="more-button" id="more-button">More</button>
+                <div id="user-info-container" style="margin-top: 20px;">
+                    <!-- L'alerte utilisateur sera chargée ici -->
+                </div>
             </div>
         </div>
         <section class="profile-details">
             <h2>Contact Information</h2>
-            <p><strong>Email:</strong> <span th:text="${email}">user@example.com</span></p>
+            <p><strong>FirstName:</strong> <span th:text="${firstName}"></span></p>
+            <p><strong>LastName:</strong> <span th:text="${lastName}"></span></p>
+            <p><strong>Joined:</strong> <span th:text="${createdAt}"></span></p>
+            <p><strong>Email:</strong> <span th:text="${email}"></span></p>
         </section>
         <form th:action="@{/logout}" method="post">
             <button type="submit" class="logout-button">Logout</button>
         </form>
     </main>
 </div>
+<script>
+    $(document).ready(function(){
+        $('#more-button').click(function(){
+            var userInfoHtml = `
+                    <div class="alert alert-info alert-dismissible fade show" role="alert">
+                        <strong>Informations Utilisateur</strong><br>
+                        <strong>Prénom:</strong> [[${firstName}]]<br>
+                        <strong>Nom:</strong> [[${lastName}]]<br>
+                        <strong>Nom d'utilisateur:</strong> [[${username}]]<br>
+                        <strong>Email:</strong> [[${email}]]<br>
+
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                `;
+            $('#user-info-container').html(userInfoHtml).show(); // Ajoute le contenu et affiche le conteneur
+        });
+    });
+</script>
 </body>
 </html>

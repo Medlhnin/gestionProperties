@@ -14,6 +14,8 @@
         </div>
         <p class="or">Or</p>
         <form class="signup-form" th:action="@{/register}" th:object="${user}" method="post">
+            <input type="text" name="Firstname" th:field="*{firstName}" placeholder="Firstname" required>
+            <input type="text" name="Lastname" th:field="*{lastName}" placeholder="Lastname" required>
             <input type="text" name="Username" th:field="*{username}" placeholder="Username" required>
             <input type="email" name="email" th:field="*{email}" placeholder="Email address" required>
             <input type="password" name="password" th:field="*{password}" placeholder="Password" required>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +14,10 @@
             <ul>
                 <li><a href="/profile">Profile</a></li>
                 <li><a href="/orders">Orders</a></li>
-                <li><a href="/reports">Reports</a></li>
+                <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
                 <li><a href="/marketplace">Marketplace</a></li>
-                <li><a href="/newProperty">New Property</a></li>
-                <li><a href="/properties">My properties</a></li>
+                <li><a href="/newProperty" sec:authorize="hasRole('OWNER')">New Property</a></li>
+                <li><a href="/properties" sec:authorize="hasRole('OWNER')">My properties</a></li>
                 <li><a href="/setting" class="active">Settings</a></li>
                 <li><a href="/helpCenter">Help Center</a></li>
             </ul>
@@ -26,18 +26,22 @@
     <main class="main-content">
         <section class="settings-section">
             <h2>User Settings</h2>
-            <form class="settings-form">
+            <form class="settings-form" th:action="@{/setting}" th:object="${GottenUser}" method="post">
                 <div class="form-group">
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                    <label for="firstname">Firstname</label>
+                    <input type="text" id="firstname" name="firstname" th:field="*{firstName}">
+                </div>
+                <div class="form-group">
+                    <label for="lastname">Lastname</label>
+                    <input type="text" id="lastname" name="lastname" th:field="*{lastName}">
                 </div>
                 <div class="form-group">
                     <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="Enter your email">
+                    <input type="text" id="email" name="email" th:field="*{email}">
                 </div>
                 <div class="form-group">
-                    <label for="role">Role</label>
-                    <input type="text" id="role" name="role" placeholder="Enter your role">
+                    <label for="username">Username</label>
+                    <input type="hidden" id="username" name="username" th:field="*{username}">
                 </div>
                 <button type="submit" class="save-button">Save Changes</button>
             </form>

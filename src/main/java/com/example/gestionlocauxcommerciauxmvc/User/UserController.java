@@ -85,8 +85,8 @@ public class UserController {
     }
 
     @PutMapping("/{username}")
-    public ResponseEntity<Void> updateUser(@PathVariable String username, @RequestBody UserGl user) {
-        userService.updateUser(username, user);
+    public ResponseEntity<Void> updateUser(@PathVariable String username, @RequestBody GottenUser user) {
+        userService.updateUser(user);
         return ResponseEntity.noContent().build();
     }
 

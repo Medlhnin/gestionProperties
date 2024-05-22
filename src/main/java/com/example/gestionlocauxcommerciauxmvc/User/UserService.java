@@ -1,10 +1,13 @@
 package com.example.gestionlocauxcommerciauxmvc.User;
 
 import com.example.gestionlocauxcommerciauxmvc.Dto.UserDto.GottenUser;
+import com.example.gestionlocauxcommerciauxmvc.exceptions.AppException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
@@ -42,8 +45,21 @@ public class UserService {
         userRepository.deleteUserGlByUsername(username);
     }
 
-    public void updateUser(String username,UserGl user)
+    public void updateUser(GottenUser updatedUser)
     {
-        userRepository.save(user);
+
+        Optional<UserGl> userOptional = userRepository.findByUsername(updatedUser.getUsername());
+        if(userOptional.isEmpty())
+        {
+            throw new AppException("Not Found user", HttpStatus.BAD_REQUEST);
+        }
+        UserGl userGl = userOptional.get();
+        userGl.setFirstName(updatedUser.getFirstName());
+        userGl.setLastName(updatedUser.getLastName());
+        userGl.setEmail(userGl.getEmail());
+        userGl.setUpdatedAt(LocalDateTime.now());
+        userRepository.save(userGl);
     }
+
+
 }

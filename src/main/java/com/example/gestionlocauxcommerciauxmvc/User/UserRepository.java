@@ -13,4 +13,5 @@ public interface UserRepository extends JpaRepository<UserGl,Long> {
     Optional<UserGl> findByUsername(String username);
     Optional<GottenUser> findUserGlByUsername(String userame);
     void deleteUserGlByUsername(String username);
+
 }

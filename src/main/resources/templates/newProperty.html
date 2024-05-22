@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +14,10 @@
             <ul>
                 <li><a href="/profile">Profile</a></li>
                 <li><a href="/orders">Orders</a></li>
-                <li><a href="/reports">Reports</a></li>
+                <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
                 <li><a href="/marketplace">Marketplace</a></li>
-                <li><a href="/newProperty" class="active">New Property</a></li>
-                <li><a href="/properties">My properties</a></li>
+                <li><a href="/newProperty" sec:authorize="hasRole('OWNER')" class="active">New Property</a></li>
+                <li><a href="/properties" sec:authorize="hasRole('OWNER')">My properties</a></li>
                 <li><a href="/setting">Settings</a></li>
                 <li><a href="/helpCenter">Help Center</a></li>
             </ul>
