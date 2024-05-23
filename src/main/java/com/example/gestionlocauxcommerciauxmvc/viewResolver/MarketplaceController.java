@@ -19,10 +19,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class MarketplaceController {
@@ -50,6 +52,7 @@ public class MarketplaceController {
                 model.addAttribute("username", userDetails.getUsername());
                 model.addAttribute("properties", propertyService.getProperties());
                 model.addAttribute("order", new OrderDto());
+                model.addAttribute("city","All");
             } else {
                 throw new UsernameNotFoundException("User details not found");
             }
@@ -83,5 +86,31 @@ public class MarketplaceController {
         orderService.saveOrder(order);
         return "redirect:/orders";
     }
+
+    @GetMapping("/marketplace/city")
+    public String propertiesByCiyty(@RequestParam("city") String city, Model model) {
+        List<Property> properties;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null && auth.isAuthenticated()) {
+            Object principal = auth.getPrincipal();
+            if (principal instanceof MyUserDetails) {
+                MyUserDetails userDetails = (MyUserDetails) principal;
+                if ("All".equalsIgnoreCase(city)) {
+                    properties = propertyService.getProperties();
+                } else {
+                    properties = propertyService.getPropertiesByCity(city);
+                }
+                model.addAttribute("username", userDetails.getUsername());
+                model.addAttribute("properties", properties);
+                model.addAttribute("order", new OrderDto());
+            } else {
+                throw new UsernameNotFoundException("User details not found");
+            }
+        }
+        return "marketplace";
+
+    }
+
+
 
 }

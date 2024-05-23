@@ -7,8 +7,8 @@ public enum City {
     Tanger,
     Kenitra,
     Marrakeck,
-    Fes,
+    Fès,
     Maknes,
-    Tetouan,
+    Tétouan,
     Agadir;
 }

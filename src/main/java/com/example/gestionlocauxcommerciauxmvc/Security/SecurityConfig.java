@@ -28,14 +28,15 @@ public class SecurityConfig {
         http.authorizeHttpRequests(auth ->
                 auth
                         .requestMatchers("/images/**", "/js/**", "/css/**", "/webjars/**", "/register","/login").permitAll()
-                        .requestMatchers("/newProperty","/properties").hasAuthority("OWNER")
-                        .anyRequest().authenticated()
-                )
+                        .requestMatchers("/newProperty","/properties","/reports").hasAuthority("ROLE_OWNER")
+                        .requestMatchers("/notification","/User/admin").hasAuthority("ROLE_ADMIN")
+                        .anyRequest().permitAll())
+                .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl("/profile", true)
                         .permitAll()
-                );
+                ); 
         return http.build();
     }
 

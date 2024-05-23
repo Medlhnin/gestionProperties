@@ -8,15 +8,20 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@RequestMapping("/properties")
 public class PropertiesController {
 
     private final PropertyService propertyService;
     public PropertiesController(PropertyService propertyService){
         this.propertyService = propertyService;
     }
-    @GetMapping("/properties")
+    @GetMapping
     public String properties(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (auth != null && auth.isAuthenticated()) {
@@ -30,5 +35,12 @@ public class PropertiesController {
             }
         }
         return "properties";
+    }
+
+    @PostMapping("/delete/{id}")
+    public String deleteProperty(@PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        propertyService.deleteProperty(id);
+        redirectAttributes.addFlashAttribute("message", "Property deleted successfully.");
+        return "redirect:/properties";
     }
 }

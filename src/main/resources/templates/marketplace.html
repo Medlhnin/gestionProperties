@@ -9,7 +9,18 @@
         function confirmAddToOrder() {
             return confirm("Are you sure you want to add this product to your order?");
         }
+        function setSelected(button) {
+            const buttons = document.querySelectorAll('.filters button');
+            buttons.forEach(btn => btn.classList.remove('selected-button'));
+            button.classList.add('selected-button');
+        }
     </script>
+    <style>
+        .selected-button {
+            background-color: lightgreen; /* Couleur de fond que vous souhaitez */
+            color: white; /* Couleur du texte */
+        }
+    </style>
 </head>
 <body>
 <div class="container">
@@ -17,35 +28,37 @@
         <h2 class="logo">User Dashboard</h2>
         <nav>
             <ul>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/orders">Orders</a></li>
+                <li><a href="/profile" sec:authorize="hasRole('OWNER') or hasRole('USER')">Profile</a></li>
+                <li><a href="/orders" sec:authorize="hasRole('OWNER') or hasRole('USER')">Orders</a></li>
                 <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
-                <li><a href="/marketplace" class="active">Marketplace</a></li>
+                <li><a href="/marketplace" class="active" sec:authorize="hasRole('OWNER') or hasRole('USER')">Marketplace</a></li>
                 <li><a href="/newProperty" sec:authorize="hasRole('OWNER')">New Property</a></li>
                 <li><a href="/properties" sec:authorize="hasRole('OWNER')">My properties</a></li>
-                <li><a href="/setting">Settings</a></li>
-                <li><a href="/helpCenter">Help Center</a></li>
+                <li><a href="/setting" sec:authorize="hasRole('OWNER') or hasRole('USER')">Settings</a></li>
+                <li><a href="/helpCenter" sec:authorize="hasRole('OWNER') or hasRole('USER')">Help Center</a></li>
+                <li><a href="/notification" sec:authorize="hasRole('ADMIN')">Notification</a></li>
             </ul>
         </nav>
     </aside>
     <main class="main-content">
         <section class="orders-section">
             <h2>Marketplace</h2>
-            <input type="text" placeholder="Search inventory">
-            <div class="filters">
-                <button>All</button>
-                <button>Casablanca</button>
-                <button>Rabat</button>
-                <button>Fès</button>
-                <button>Tanger</button>
-                <button>Tétouan</button>
-            </div>
+            <form th:action="@{/marketplace/city}" method="get">
+                <div class="filters" th:object="${city}">
+                    <button name="city" th:value="All" class="selected-button" onclick="setSelected(this)">All</button>
+                    <button name="city" th:value="Casablanca" onclick="setSelected(this)">Casablanca</button>
+                    <button name="city" th:value="Rabat" onclick="setSelected(this)">Rabat</button>
+                    <button name="city" th:value="Fès" onclick="setSelected(this)">Fès</button>
+                    <button name="city" th:value="Tanger" onclick="setSelected(this)">Tanger</button>
+                    <button name="city" th:value="Tétouan" onclick="setSelected(this)">Tétouan</button>
+                </div>
+            </form>
             <div th:if="${message}" class="alert alert-success">
                 <p th:text="${message}"></p>
             </div>
             <div class="order-list" th:each="property: ${properties}">
                     <div class="order-item">
-                        <img th:src="@{/images/appartement.webp}" alt="Product Image">
+                        <img th:src="@{/images/Appartement02.jpg}" alt="Product Image">
                         <div class="order-info">
                             <h3 th:text="${{property.getName()}}"></h3>
                             <p th:text="${{property.getCity()}}"></p>

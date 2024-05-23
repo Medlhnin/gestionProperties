@@ -62,7 +62,7 @@ public class RegistrationController {
             userGl.setSubscription(null);
         }
         userService.saveUser(userGl);
-        ModelAndView modelAndView = new ModelAndView("login");
+        ModelAndView modelAndView = new ModelAndView("redirect:/login");
         modelAndView.addObject("message", "User registered successfully!");
         return modelAndView;
     }}

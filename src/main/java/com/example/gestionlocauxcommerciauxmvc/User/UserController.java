@@ -1,6 +1,8 @@
 package com.example.gestionlocauxcommerciauxmvc.User;
 
 import com.example.gestionlocauxcommerciauxmvc.Security.MyUserDetails;
+import com.example.gestionlocauxcommerciauxmvc.Subscription.Subscription;
+import com.example.gestionlocauxcommerciauxmvc.Subscription.TypeSubscription;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 
 import java.net.URI;
+import java.util.Objects;
 import java.util.Optional;
 
 @RestController
@@ -95,7 +98,26 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-
+    @PostMapping("/admin")
+    public ResponseEntity<Void> admin(@RequestBody GottenUser admin) {
+        UserGl userGl = new UserGl();
+        String hashedPassword = passwordEncoder.encode(admin.getPassword());
+        userGl.setFirstName(admin.getFirstName());
+        userGl.setLastName(admin.getLastName());
+        userGl.setUsername(admin.getUsername());
+        userGl.setPassword(hashedPassword);
+        userGl.setEmail(admin.getEmail());
+        userGl.setCreatedAt(java.time.LocalDateTime.now());
+        userGl.setUpdatedAt(java.time.LocalDateTime.now());
+        userGl.setSubscription(null);
+        if (admin.getRole().contains("ADMIN")) {
+            userGl.setRoles("ROLE_ADMIN");
+        } else {
+            userGl.setRoles("ROLE_USER");
+        }
+        userService.saveUser(userGl);
+        return ResponseEntity.noContent().build();
+    }
 
 
 

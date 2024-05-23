@@ -12,14 +12,15 @@
         <h2 class="logo">User Dashboard</h2>
         <nav>
             <ul>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/orders">Orders</a></li>
+                <li><a href="/profile" sec:authorize="hasRole('OWNER') or hasRole('USER')">Profile</a></li>
+                <li><a href="/orders" sec:authorize="hasRole('OWNER') or hasRole('USER')">Orders</a></li>
                 <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
-                <li><a href="/marketplace">Marketplace</a></li>
-                <li><a href="/newProperty" sec:authorize="hasRole('OWNER')" class="active">New Property</a></li>
+                <li><a href="/marketplace" sec:authorize="hasRole('OWNER') or hasRole('USER')">Marketplace</a></li>
+                <li><a href="/newProperty" class="active" sec:authorize="hasRole('OWNER') ">New Property</a></li>
                 <li><a href="/properties" sec:authorize="hasRole('OWNER')">My properties</a></li>
-                <li><a href="/setting">Settings</a></li>
-                <li><a href="/helpCenter">Help Center</a></li>
+                <li><a href="/setting" sec:authorize="hasRole('OWNER') or hasRole('USER')">Settings</a></li>
+                <li><a href="/helpCenter" sec:authorize="hasRole('OWNER') or hasRole('USER')">Help Center</a></li>
+                <li><a href="/notification" sec:authorize="hasRole('ADMIN')">Notification</a></li>
             </ul>
         </nav>
     </aside>

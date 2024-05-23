@@ -25,7 +25,7 @@ public class LoginController {
         this.authenticationManager = authenticationManager;
     }
     @GetMapping("/login")
-    String login(Model model) {
+    public String login(Model model) {
         model.addAttribute("loginUser", new LoginRequest());
         return "login";
     }

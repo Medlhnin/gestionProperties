@@ -12,14 +12,15 @@
         <h2 class="logo">User Dashboard</h2>
         <nav>
             <ul>
-                <li><a href="/profile">Profile</a></li>
-                <li><a href="/orders">Orders</a></li>
+                <li><a href="/profile" sec:authorize="hasRole('OWNER') or hasRole('USER')">Profile</a></li>
+                <li><a href="/orders" sec:authorize="hasRole('OWNER') or hasRole('USER')">Orders</a></li>
                 <li><a href="/reports" sec:authorize="hasRole('OWNER')">Reports</a></li>
-                <li><a href="/marketplace">Marketplace</a></li>
+                <li><a href="/marketplace" sec:authorize="hasRole('OWNER') or hasRole('USER')">Marketplace</a></li>
                 <li><a href="/newProperty" sec:authorize="hasRole('OWNER')">New Property</a></li>
-                <li><a href="/properties" sec:authorize="hasRole('OWNER')" class="active">My properties</a></li>
-                <li><a href="/setting">Settings</a></li>
-                <li><a href="/helpCenter">Help Center</a></li>
+                <li><a href="/properties" class="active" sec:authorize="hasRole('OWNER')">My properties</a></li>
+                <li><a href="/setting" sec:authorize="hasRole('OWNER') or hasRole('USER')">Settings</a></li>
+                <li><a href="/helpCenter" sec:authorize="hasRole('OWNER') or hasRole('USER')">Help Center</a></li>
+                <li><a href="/notification" sec:authorize="hasRole('ADMIN')">Notification</a></li>
             </ul>
         </nav>
     </aside>
@@ -30,13 +31,20 @@
                 <div class="property-item">
                     <h3 th:text="${{property.getName()}}"></h3>
                     <p th:text="${{property.getAddress()}}"></p>
-                    <p th:text="${{property.getPrice()}}"></p>
-                    <button class="edit-button">Edit</button>
-                    <button class="delete-button">Delete</button>
+                    <p th:text="${{property.getPrice()}}+ '$'"></p>
+                    <!-- <button class="edit-button">Edit</button> -->
+                    <form th:action="@{/properties/delete/{id}(id=${property.getId()})}" method="post" onsubmit="return confirmDelete(this);">
+                        <button type="submit" class="delete-button">Delete</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 </div>
+<script>
+    function confirmDelete(form) {
+        return confirm("Are you sure you want to delete this property?");
+    }
+</script>
 </body>
 </html>

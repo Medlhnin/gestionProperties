@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface PropertyRepository extends JpaRepository<Property, Long>{
     List<Property> findPropertiesByOwner(UserGl owner);
+    List<Property> findPropertiesByCity(City city);
 }

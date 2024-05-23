@@ -10,6 +10,7 @@ import lombok.Setter;
 
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -20,8 +21,6 @@ import java.util.Objects;
 @NoArgsConstructor
 
 @Entity
-/* @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING) */
 public class UserGl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,7 +38,7 @@ public class UserGl {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     @OneToMany
-    private List<Property> properties;
+    private List<Property> properties = new ArrayList<>();
     @OneToOne
     private Subscription subscription;
     private String roles;

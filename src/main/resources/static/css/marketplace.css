@@ -101,7 +101,7 @@ body {
     margin-bottom: 20px;
 }
 
-.filters .btn {
+.filters button {
     margin-right: 10px;
     padding: 10px 20px;
     background-color: #007bff;
@@ -111,7 +111,7 @@ body {
     cursor: pointer;
 }
 
-.filters .btn:hover {
+.filters button:hover {
     background-color: #0056b3;
 }
 
@@ -175,3 +175,5 @@ body {
 .btn.view-order:hover {
     background-color: #218838; /* Darker green on hover */
 }
+
+
